@@ -66,9 +66,9 @@
   --sans: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
   --serif: "Literata", Georgia, "Times New Roman", serif;
 
-  --measure: 40rem;        /* reading column, about 70 characters of Literata at 18px */
-  --rail: 11rem;
-  --page: 64rem;
+  --measure: 46rem;        /* reading column, about 85 characters of Literata at 18px */
+  --rail: 12rem;
+  --page: 74rem;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
