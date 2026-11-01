@@ -492,3 +492,6 @@ a:focus-visible, button:focus-visible {
 @media (max-width: 34rem) {
   .post-body > p:first-child { font-size: 1.15rem; }
 }
+
+/* Some older tables forbid wrapping inline; let cells wrap inside the column */
+.post-body th, .post-body td { white-space: normal !important; }
