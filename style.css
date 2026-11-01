@@ -61,6 +61,7 @@
   --link: #1d4f91;
   --link-visited: #4a3d8c;
   --mark: #1f3a5f;         /* logo bar: deep navy */
+  --title: #1d4f91;        /* post titles: brand blue */
   --wash: #f3f5f7;
 
   --sans: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -495,3 +496,7 @@ a:focus-visible, button:focus-visible {
 
 /* Some older tables forbid wrapping inline; let cells wrap inside the column */
 .post-body th, .post-body td { white-space: normal !important; }
+
+/* Titles in the brand blue so they stand apart from body text */
+.entry-title a, .entry-title a:visited { color: var(--title); }
+.post-title { color: var(--title); }
