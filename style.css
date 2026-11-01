@@ -500,3 +500,181 @@ a:focus-visible, button:focus-visible {
 /* Titles in the brand blue so they stand apart from body text */
 .entry-title a, .entry-title a:visited { color: var(--title); }
 .post-title { color: var(--title); }
+
+/* ---------- Home: main page (design_v1/home_v1) ----------
+   Each band has the rail and the column used by posts. The data band is washed edge to edge,
+   so the home <main> has no .wrap of its own; every band carries one inside. */
+
+.home-row {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: 0 2.5rem;
+}
+.home-measure { max-width: var(--measure); }
+
+.home-intro .wrap { padding-top: 4.5rem; padding-bottom: 4rem; }
+.home-title {
+  font-family: var(--sans);
+  font-size: clamp(2rem, 1.3rem + 2.2vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin: 0;
+  text-wrap: balance;
+}
+.home-lede { font-size: 1.28rem; line-height: 1.65; margin: 1.75rem 0 0; }
+.home-scale {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 1.125rem 0 0;
+}
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.75rem;
+  margin: 2rem 0 0;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.button, .button:visited {
+  display: inline-block;
+  background: var(--mark);
+  color: var(--paper);
+  text-decoration: none;
+  padding: 0.8125rem 1.375rem;
+  border-radius: 3px;
+  line-height: 1.3;
+}
+.button:hover { background: var(--ink); }
+
+/* Band headings in the rail carry the navy bar */
+.home-head {
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0 0 0.375rem;
+}
+.home-head::before {
+  content: "";
+  display: block;
+  width: 2.2rem;
+  height: 4px;
+  background: var(--mark);
+  margin-bottom: 0.75rem;
+}
+.home-sub {
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0 0 1.75rem;
+}
+
+/* Start here: three featured posts */
+.home-start .wrap { padding-bottom: 4.5rem; }
+.featured {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.25rem 2rem;
+}
+.feature { border-top: 1px solid var(--rule); padding-top: 1.25rem; }
+.kicker {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0 0 0.625rem;
+}
+.feature-title {
+  font-family: var(--sans);
+  font-size: 1.22rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.feature-title a, .feature-title a:visited { color: var(--title); text-decoration: none; }
+.feature-title a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+.feature-desc { font-size: 1rem; line-height: 1.6; color: var(--ink-soft); margin: 0.75rem 0 0; }
+.feature-date {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  margin: 0.75rem 0 0;
+}
+
+/* Use the data: the two APIs on a washed band */
+.home-data {
+  background: var(--wash);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.home-data .wrap { padding-top: 3.5rem; padding-bottom: 3.75rem; }
+.apis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.25rem 2.5rem;
+}
+.api { border-top: 2px solid var(--mark); padding-top: 1.25rem; }
+.api h3 {
+  font-family: var(--sans);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+}
+.api p { font-size: 1rem; line-height: 1.6; margin: 0.625rem 0 0; }
+.api ul {
+  margin: 0.875rem 0 0;
+  padding-left: 1.2em;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.api .api-link { font-family: var(--sans); font-size: 0.95rem; font-weight: 600; margin-top: 1.125rem; }
+.api-link span { font-weight: 400; color: var(--ink-soft); margin-left: 0.75rem; }
+
+/* All posts: topics, then every month inside the column */
+.home-posts .wrap { padding-top: 4rem; padding-bottom: 4.5rem; }
+.home .topics { padding: 0; margin: 0 0 2.5rem; }
+.home .topics ul { gap: 0.5rem 1.5rem; }
+.home-month-name {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 1.25rem;
+}
+.home-month + .home-month .home-month-name {
+  margin-top: 3rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--rule);
+}
+.home-month-name a { color: var(--ink); text-decoration: none; }
+.home-month-name a:hover { text-decoration: underline; }
+.home-month-name .count { font-weight: 400; font-size: 0.875rem; color: var(--ink-faint); margin-left: 0.5rem; }
+
+@media (max-width: 64rem) {
+  .featured, .apis { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 52rem) {
+  .home-row { grid-template-columns: minmax(0, 1fr); }
+  .home-rail:empty { display: none; }
+}
+
+@media (max-width: 34rem) {
+  .home-intro .wrap { padding-top: 2.5rem; padding-bottom: 3rem; }
+  .home-lede { font-size: 1.15rem; }
+  .home-start .wrap { padding-bottom: 3.5rem; }
+  .home-data .wrap { padding-top: 2.75rem; padding-bottom: 3rem; }
+  .home-posts .wrap { padding-top: 2.75rem; padding-bottom: 3.5rem; }
+}
