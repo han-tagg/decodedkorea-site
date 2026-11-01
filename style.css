@@ -450,3 +450,45 @@ a:focus-visible, button:focus-visible {
   .post { display: block; padding: 0; }
   a { color: inherit; }
 }
+
+/* ---------- Reading aids inside posts ----------
+   Post bodies keep their inline styles; these rules only add what the inline styles leave open. */
+
+/* Opening paragraph reads as the standfirst */
+.post-body > p:first-child {
+  font-size: 1.28rem;
+  color: var(--ink);
+}
+
+/* Section headings carry the same navy bar as the logo */
+.post-body h2::before {
+  content: "";
+  display: block;
+  width: 2.2rem;
+  height: 4px;
+  background: var(--mark);
+  margin-bottom: 0.75rem;
+}
+
+/* Bold phrases in the text stand out in navy */
+.post-body p strong,
+.post-body li strong {
+  color: var(--mark);
+  font-weight: 650;
+}
+
+/* Data notes ("Data: MFDS public data ...") sit in a quiet panel */
+.post-body > p[style*="color: #555"] {
+  background: var(--wash);
+  border-left: 3px solid var(--mark);
+  padding: 0.9rem 1.15rem;
+}
+
+/* Table header row closes with a navy rule */
+.post-body th {
+  border-bottom: 2px solid var(--mark) !important;
+}
+
+@media (max-width: 34rem) {
+  .post-body > p:first-child { font-size: 1.15rem; }
+}
