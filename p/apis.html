@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="CLcWfxwHHKmvzqbHhsDWhmmqab6y8ykTszpVrK7PBuc">
+<title>APIs</title>
+<link rel="canonical" href="https://www.decodedkorea.org/p/apis.html">
+<meta name="description" content="APIs">
+<meta property="og:url" content="https://www.decodedkorea.org/p/apis.html">
+<meta property="og:title" content="APIs">
+<meta property="og:description" content="APIs">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Decoded Korea">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="alternate" type="application/atom+xml" title="Decoded Korea - Atom" href="https://www.decodedkorea.org/atom.xml">
+<link rel="alternate" type="application/rss+xml" title="Decoded Korea - RSS" href="https://www.decodedkorea.org/rss.xml">
+<link rel="stylesheet" href="/assets/site.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VN2KT6E084"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-VN2KT6E084');</script>
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<p class="site-title"><a href="/">Decoded Korea</a></p>
+<p class="site-desc">Decoding Korean cosmetic ingredients, chemical regulations, and safety data. Powered by real regulatory databases covering 21,000+ ingredients and 47,000+ chemical substances.</p>
+<nav class="site-nav"><ul><li><a href="/">Home</a></li><li><a href="/p/about.html">About</a></li><li><a href="/p/apis.html">APIs</a></li><li><a href="/p/disclaimer.html">Disclaimer</a></li><li><a href="/p/privacy-policy.html">Privacy Policy</a></li></ul></nav>
+</div></header>
+<main class="wrap">
+<article class="post">
+<h1 class="post-title">APIs</h1>
+
+<div class="post-body">
+<!--body-start--><h2 style="margin-top: 0; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Our APIs</h2>
+
+<p style="line-height: 1.7; margin: 1em 0;">Decoded Korea maintains two regulatory data APIs. Both are available on RapidAPI with free tiers.</p>
+
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">K-Beauty Cosmetic Ingredients API</h2>
+
+<p style="line-height: 1.7; margin: 1em 0;">Regulatory data for cosmetic ingredients across 10 countries.</p>
+
+<div style="overflow-x: auto; margin: 1em 0;">
+<table style="border-collapse: collapse; width: auto; max-width: 100%; margin: 1em 0; font-size: 0.95em;">
+<tr>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Coverage</th>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Details</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Ingredients</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">21,796</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Regulatory records</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">31,191</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Countries</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">10 (EU, Korea, Japan, China, Taiwan, ASEAN, Brazil, Argentina, US, Canada)</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Data source</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">MFDS (Korea), EU CosIng</td>
+</tr>
+</table>
+</div>
+
+<p style="line-height: 1.7; margin: 1em 0;"><strong>What you can query:</strong></p>
+
+<div style="overflow-x: auto; margin: 1em 0;">
+<table style="border-collapse: collapse; width: auto; max-width: 100%; margin: 1em 0; font-size: 0.95em;">
+<tr>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Query type</th>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Example</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Search by ingredient name</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">"retinol" → all retinol variants + regulations</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Search by CAS number</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">CAS 50-81-7 → Ascorbic Acid regulations</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Filter by country</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">All ingredients banned in the EU</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Filter by regulation type</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">All ingredients restricted in Korea with concentration limits</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Compare across countries</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Oxybenzone regulation in all 10 markets</td>
+</tr>
+</table>
+</div>
+
+<p style="line-height: 1.7; margin: 1em 0;"><strong>Pricing:</strong></p>
+
+<div style="overflow-x: auto; margin: 1em 0;">
+<table style="border-collapse: collapse; width: auto; max-width: 100%; margin: 1em 0; font-size: 0.95em;">
+<tr>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Tier</th>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Price</th>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Calls/month</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">BASIC</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Free</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">300</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">PRO</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">$29/mo</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">10,000</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">ULTRA</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">$79/mo</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">25,000</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">MEGA</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">$199/mo</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">80,000</td>
+</tr>
+</table>
+</div>
+
+<p style="line-height: 1.7; margin: 1em 0;">→ <a href="https://rapidapi.com/han8212/api/k-beauty-cosmetic-ingredients" target="_blank">View on RapidAPI</a></p>
+
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">K-REACH Chemical Substance API</h2>
+
+<p style="line-height: 1.7; margin: 1em 0;">Regulatory classification data for chemical substances registered under Korea's K-REACH.</p>
+
+<div style="overflow-x: auto; margin: 1em 0;">
+<table style="border-collapse: collapse; width: auto; max-width: 100%; margin: 1em 0; font-size: 0.95em;">
+<tr>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Coverage</th>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Details</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Substances</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">47,000+</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Regulatory flags</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">9 per substance</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">GHS hazard data</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Included where available</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Data source</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Korea Environment Corporation (data.go.kr)</td>
+</tr>
+</table>
+</div>
+
+<p style="line-height: 1.7; margin: 1em 0;"><strong>9 regulatory flags per substance:</strong></p>
+
+<div style="overflow-x: auto; margin: 1em 0;">
+<table style="border-collapse: collapse; width: auto; max-width: 100%; margin: 1em 0; font-size: 0.95em;">
+<tr>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Flag</th>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Description</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Toxic</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Designated as toxic substance</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Restricted</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Handling restricted with conditions</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Prohibited</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Handling completely banned</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Priority management</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Requires enhanced monitoring</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">CMR</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Carcinogenic, mutagenic, or reprotoxic</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Accident preparedness</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Subject to accident prevention measures</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Registration required</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Must be registered before manufacture/import</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Persistent organic pollutant</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Listed under Stockholm Convention</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Rotterdam Convention</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Subject to prior informed consent in trade</td>
+</tr>
+</table>
+</div>
+
+<p style="line-height: 1.7; margin: 1em 0;"><strong>What you can query:</strong></p>
+
+<div style="overflow-x: auto; margin: 1em 0;">
+<table style="border-collapse: collapse; width: auto; max-width: 100%; margin: 1em 0; font-size: 0.95em;">
+<tr>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Query type</th>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Example</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Search by CAS number</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">CAS 50-00-0 → Formaldehyde: 5 flags</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Search by substance name</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">"benzene" → all matching substances</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Filter by flag</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">All prohibited substances (97 results)</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">GHS hazard data</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Signal word, pictograms, H-statements</td>
+</tr>
+</table>
+</div>
+
+<p style="line-height: 1.7; margin: 1em 0;"><strong>Pricing:</strong></p>
+
+<div style="overflow-x: auto; margin: 1em 0;">
+<table style="border-collapse: collapse; width: auto; max-width: 100%; margin: 1em 0; font-size: 0.95em;">
+<tr>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Tier</th>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Price</th>
+<th style="border: 1px solid #ddd; padding: 8px 12px; background-color: #f5f5f5; text-align: left; font-weight: bold; white-space: nowrap;">Calls/month</th>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">BASIC</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">Free</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">200</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">PRO</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">$99/mo</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">3,000</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">ULTRA</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">$299/mo</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">25,000</td>
+</tr>
+<tr>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">MEGA</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">$899/mo</td>
+<td style="border: 1px solid #ddd; padding: 8px 12px; white-space: nowrap;">100,000</td>
+</tr>
+</table>
+</div>
+
+<p style="line-height: 1.7; margin: 1em 0;">→ <a href="https://rapidapi.com/han8212/api/k-reach-chemical-substance-api" target="_blank">View on RapidAPI</a></p>
+
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Who uses this data</h2>
+
+<p style="line-height: 1.7; margin: 1em 0;">Regulatory affairs teams checking ingredient compliance before export. Cosmetic formulators verifying concentration limits across markets. Chemical safety officers screening substances against Korean regulations. Developers building compliance tools and regulatory dashboards.</p>
+
+<p style="line-height: 1.7; margin: 1em 0;">Both APIs offer a free tier, 300 calls/month for K-Beauty and 200 for K-REACH, enough to evaluate the data before committing.</p>
+
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+
+<p style="line-height: 1.7; margin: 1em 0; font-size: 0.9em; color: #666;">Questions about the APIs or data coverage? See our <a href="https://www.decodedkorea.org/p/about.html">About</a> page or reach out via RapidAPI.</p>
+<!--body-end-->
+</div>
+</article>
+</main>
+<footer class="site-footer"><div class="wrap"><p>© 2026 Decoded Korea. All content, data analysis, and regulatory compilations are the intellectual property of Decoded Korea. Unauthorized reproduction prohibited.</p></div></footer>
+</body>
+</html>

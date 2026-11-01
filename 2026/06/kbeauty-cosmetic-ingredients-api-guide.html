@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="CLcWfxwHHKmvzqbHhsDWhmmqab6y8ykTszpVrK7PBuc">
+<title>What&#x27;s Inside the K-Beauty Cosmetic Ingredients API: 4 Queries That Show You the Data</title>
+<link rel="canonical" href="https://www.decodedkorea.org/2026/06/kbeauty-cosmetic-ingredients-api-guide.html">
+<meta name="description" content="The K-Beauty API exposes 21,796 cosmetic ingredients with regulations across 10 markets. We show you 4 real queries with live API responses.">
+<meta property="og:url" content="https://www.decodedkorea.org/2026/06/kbeauty-cosmetic-ingredients-api-guide.html">
+<meta property="og:title" content="What&#x27;s Inside the K-Beauty Cosmetic Ingredients API: 4 Queries That Show You the Data">
+<meta property="og:description" content="The K-Beauty API exposes 21,796 cosmetic ingredients with regulations across 10 markets. We show you 4 real queries with live API responses.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Decoded Korea">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="alternate" type="application/atom+xml" title="Decoded Korea - Atom" href="https://www.decodedkorea.org/atom.xml">
+<link rel="alternate" type="application/rss+xml" title="Decoded Korea - RSS" href="https://www.decodedkorea.org/rss.xml">
+<link rel="stylesheet" href="/assets/site.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VN2KT6E084"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-VN2KT6E084');</script>
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<p class="site-title"><a href="/">Decoded Korea</a></p>
+<p class="site-desc">Decoding Korean cosmetic ingredients, chemical regulations, and safety data. Powered by real regulatory databases covering 21,000+ ingredients and 47,000+ chemical substances.</p>
+<nav class="site-nav"><ul><li><a href="/">Home</a></li><li><a href="/p/about.html">About</a></li><li><a href="/p/apis.html">APIs</a></li><li><a href="/p/disclaimer.html">Disclaimer</a></li><li><a href="/p/privacy-policy.html">Privacy Policy</a></li></ul></nav>
+</div></header>
+<main class="wrap">
+<article class="post">
+<h1 class="post-title">What&#x27;s Inside the K-Beauty Cosmetic Ingredients API: 4 Queries That Show You the Data</h1>
+<p class="post-meta"><time datetime="2026-06-15T12:14:07.285Z">June 15, 2026</time> · <span class="post-labels"><a href="/search/label/K-Beauty%3A%20Ingredients">K-Beauty: Ingredients</a>, <a href="/search/label/K-Beauty%3A%20Regulations">K-Beauty: Regulations</a></span></p>
+<div class="post-body">
+<!--body-start--><p style="line-height: 1.7; margin: 1em 0;">Korean cosmetic regulatory data is hard to work with for three reasons. It is written in Korean. It is spread across two government agencies — MFDS for the rules and KCIA for the ingredient classifications. And what looks like a single restriction on paper is often three different texts in three different formats: a Korean notice, an English-translated CosIng entry, and a provisional KCIA clause.</p>
+<p style="line-height: 1.7; margin: 1em 0;">The K-Beauty Cosmetic Ingredients API is the version of that data we wish we had had when we started. It exposes 21,796 ingredients with their regulatory status across 10 markets — the EU, Korea, ASEAN, China, Japan, Taiwan, Brazil, Argentina, Canada, and the US — through a single, consistent JSON interface. The Korean source text is preserved in the payload, but the fields most regulatory workflows depend on come back in English or numeric form. The 19 posts we have published on this blog are all built on this same database, in English.</p>
+<p style="line-height: 1.7; margin: 1em 0;">This post walks through what the API actually returns, with real responses, and the questions each one answers.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">What is in the database</h2>
+<p style="line-height: 1.7; margin: 1em 0;">A single call to the stats endpoint returns the headline numbers:</p>
+<pre style="background-color: #f5f5f5; border-left: 3px solid #999; padding: 1em; margin: 1em 0; overflow-x: auto; font-size: 0.85em; line-height: 1.5;"><code>GET /v1/stats
+
+{
+  "success": true,
+  "data": {
+    "total_ingredients": 21796,
+    "by_regulation_status": {
+      "Not Listed": 20301,
+      "Prohibited": 172,
+      "Restricted": 1046,
+      "Restricted / Prohibited": 277
+    },
+    "api_version": "3.1.0"
+  }
+}</code></pre>
+<p style="line-height: 1.7; margin: 1em 0;">Of the 21,796 ingredients, 1,495 are subject to at least one regulation somewhere in the 10-market set. Across those markets, the database holds about 30,000 individual regulatory entries — every country-level prohibition, concentration limit, product-category restriction, and KCIA provisional clause linked back to the ingredient it applies to. The status labels themselves (<code>Not Listed</code>, <code>Prohibited</code>, <code>Restricted</code>) are returned in English.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Scenario 1: Look up an ingredient by INCI name</h2>
+<p style="line-height: 1.7; margin: 1em 0;">The most common starting point. Given an INCI name, return the ingredient's identifiers, purposes, regulatory status, and Korean MFDS classification. The annotations below the Korean fields are added here for explanation — they are not part of the response.</p>
+<pre style="background-color: #f5f5f5; border-left: 3px solid #999; padding: 1em; margin: 1em 0; overflow-x: auto; font-size: 0.85em; line-height: 1.5;"><code>GET /v1/ingredient/inci?q=Methylparaben
+
+{
+  "success": true,
+  "count": 1,
+  "data": [{
+    "code": 213,
+    "kr_name": "메틸파라벤",          // Korean ingredient name
+    "inci_name": "Methylparaben",
+    "cas_numbers": "99-76-3",
+    "ec_numbers": "202-785-7(I)",
+    "purposes": "착향제, 보존제",       // fragrance, preservative
+    "regulation_status": "Restricted",
+    "limit_value": "0.4%, 0.8%",
+    "mfds_classification": "한도",      // "Limit" — capped, not banned
+    "kcia_proviso": "단일성분일 경우 0.4%(산으로서)
+                     혼합사용의 경우 0.8%(산으로서)"
+                     // 0.4% as acid for single use,
+                     // 0.8% as acid for mixtures
+  }]
+}</code></pre>
+<p style="line-height: 1.7; margin: 1em 0;">One call answers what a regulatory affairs analyst would otherwise piece together from three sources. The fields most cross-market workflows use — <code>inci_name</code>, <code>cas_numbers</code>, <code>ec_numbers</code>, <code>regulation_status</code>, and <code>limit_value</code> — are all English or numeric. The Korean fields (<code>kr_name</code>, <code>mfds_classification</code>, <code>kcia_proviso</code>) are kept verbatim so a Korean-speaking analyst can check against the original MFDS source, but they are not needed to read the regulatory status. The internal <code>code</code> (213) is the key used in every other endpoint.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Scenario 2: Pull every country's regulation for one ingredient</h2>
+<p style="line-height: 1.7; margin: 1em 0;">Using the code from scenario 1, the regulations endpoint returns every market that regulates the ingredient — with the local notice name, restriction type, and the full limit-condition text.</p>
+<pre style="background-color: #f5f5f5; border-left: 3px solid #999; padding: 1em; margin: 1em 0; overflow-x: auto; font-size: 0.85em; line-height: 1.5;"><code>GET /v1/ingredient/213/regulations
+
+{
+  "success": true,
+  "ingredient": {
+    "code": 213,
+    "inci_name": "Methylparaben"
+  },
+  "count": 8,
+  "data": [
+    { "country": "EU",        "regulate_type": "제한 (restricted)", ... },
+    { "country": "한국 (Korea)",      ... },
+    { "country": "일본 (Japan)",      ... },
+    { "country": "중국 (China)",      ... },
+    { "country": "대만 (Taiwan)",     ... },
+    { "country": "아세안 (ASEAN)",    ... },
+    { "country": "브라질 (Brazil)",   ... },
+    { "country": "아르헨티나 (Argentina)", ... }
+  ]
+}</code></pre>
+<p style="line-height: 1.7; margin: 1em 0;">Eight markets restrict methylparaben; Canada and the US do not. For the markets that publish in English — the EU (CosIng), ASEAN, China, and Brazil — the <code>limit_condition</code> field contains the original English regulatory text alongside a Korean translation. For Korea, Japan, Taiwan, and Argentina, the local-language text is preserved with a Korean translation. A summary of the numerical limits, extracted from the response:</p>
+<div style="overflow-x: auto; margin: 1.5em 0;">
+<table style="border-collapse: collapse; width: 100%; font-size: 0.95em;">
+<thead>
+<tr style="border-bottom: 2px solid #333;">
+<th style="text-align: left; padding: 0.5em 0.8em;">Market</th>
+<th style="text-align: left; padding: 0.5em 0.8em;">Single ester</th>
+<th style="text-align: left; padding: 0.5em 0.8em;">Mixture</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom: 1px solid #ddd;"><td style="padding: 0.5em 0.8em;">EU</td><td style="padding: 0.5em 0.8em;">0.4%</td><td style="padding: 0.5em 0.8em;">0.8%</td></tr>
+<tr style="border-bottom: 1px solid #ddd;"><td style="padding: 0.5em 0.8em;">Korea</td><td style="padding: 0.5em 0.8em;">0.4%</td><td style="padding: 0.5em 0.8em;">0.8%</td></tr>
+<tr style="border-bottom: 1px solid #ddd;"><td style="padding: 0.5em 0.8em;">ASEAN</td><td style="padding: 0.5em 0.8em;">0.4%</td><td style="padding: 0.5em 0.8em;">0.8%</td></tr>
+<tr style="border-bottom: 1px solid #ddd;"><td style="padding: 0.5em 0.8em;">Brazil</td><td style="padding: 0.5em 0.8em;">0.4%</td><td style="padding: 0.5em 0.8em;">0.8%</td></tr>
+<tr style="border-bottom: 1px solid #ddd;"><td style="padding: 0.5em 0.8em;">Argentina</td><td style="padding: 0.5em 0.8em;">0.4%</td><td style="padding: 0.5em 0.8em;">0.8%</td></tr>
+<tr style="border-bottom: 1px solid #ddd;"><td style="padding: 0.5em 0.8em;">China</td><td style="padding: 0.5em 0.8em;">0.4%</td><td style="padding: 0.5em 0.8em;">0.8% *</td></tr>
+<tr style="border-bottom: 1px solid #ddd;"><td style="padding: 0.5em 0.8em;">Taiwan</td><td style="padding: 0.5em 0.8em;">0.4%</td><td style="padding: 0.5em 0.8em;">0.8%</td></tr>
+<tr style="border-bottom: 1px solid #ddd;"><td style="padding: 0.5em 0.8em;">Japan</td><td style="padding: 0.5em 0.8em;" colspan="2">1.0% total parabens per 100 g</td></tr>
+</tbody>
+</table>
+</div>
+<p style="line-height: 1.7; margin: 0.5em 0 1em; font-size: 0.9em; color: #666;">* China additionally caps propyl- and butyl-paraben groups at 0.14% each. Limits shown are for methyl/ethyl esters as in the response.</p>
+<p style="line-height: 1.7; margin: 1em 0;">The eight-market view is what a single ingredient page in the database returns. Korea and the EU align at 0.4% / 0.8%, the ASEAN-MERCOSUR-China-Taiwan group matches, and Japan applies its own total-parabens-per-100-g cap. The same call shape works for any ingredient in the database.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Scenario 3: Search by Korean name when you have one</h2>
+<p style="line-height: 1.7; margin: 1em 0;">INCI search is the default for international work. The Korean search endpoint is there for the case where you are starting from a Korean source — parsing an MFDS notice, a product registration, or a Korean ingredient label — and have the Hangul name rather than the INCI name. It resolves to the same record.</p>
+<pre style="background-color: #f5f5f5; border-left: 3px solid #999; padding: 1em; margin: 1em 0; overflow-x: auto; font-size: 0.85em; line-height: 1.5;"><code>GET /v1/ingredient/kr?q=리날룰   // "Linalool" in Korean
+
+{
+  "success": true,
+  "data": [{
+    "code": 9,
+    "kr_name": "리날룰",
+    "inci_name": "Linalool",
+    "cas_numbers": "78-70-6",
+    "purposes": "착향제",            // fragrance
+    "regulation_status": "Restricted",
+    "limit_value": "0.01%, 0.001%",
+    "mfds_classification": "한도",    // "Limit"
+    "kcia_proviso": "...사용 후 씻어내는 제품에는 0.01% 초과,
+                     사용 후 씻어내지 않는 제품에는 0.001% 초과
+                     함유하는 경우에 한함"
+                     // labeling required above 0.01% in rinse-off,
+                     // above 0.001% in leave-on products
+  }]
+}</code></pre>
+<p style="line-height: 1.7; margin: 1em 0;">Linalool is a fragrance allergen with a Korean labeling requirement above two thresholds, depending on whether the product is rinsed off. The result comes back with the same English and numeric fields as an INCI search; the Korean name is just the way in.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Scenario 4: Pull a whole ingredient family</h2>
+<p style="line-height: 1.7; margin: 1em 0;">When the question is not about one ingredient but about a class — every paraben, every retinoid, every UV filter — a partial-match search on the INCI field returns the full set in one call.</p>
+<pre style="background-color: #f5f5f5; border-left: 3px solid #999; padding: 1em; margin: 1em 0; overflow-x: auto; font-size: 0.85em; line-height: 1.5;"><code>GET /v1/ingredient/search?q=paraben&field=inci
+
+{
+  "success": true,
+  "count": 22,
+  "data": [
+    { "code": 213, "inci_name": "Methylparaben",    "regulation_status": "Restricted" },
+    { "code": 607, "inci_name": "Butylparaben",     "regulation_status": "Restricted" },
+    { "code": 608, "inci_name": "Ethylparaben",     "regulation_status": "Restricted" },
+    { "code": 609, "inci_name": "Propylparaben",    "regulation_status": "Restricted" },
+    { "code": 610, "inci_name": "Isobutylparaben",  "regulation_status": "Prohibited" },
+    { "code": 611, "inci_name": "Isopropylparaben", "regulation_status": "Prohibited" },
+    ...
+  ]
+}</code></pre>
+<p style="line-height: 1.7; margin: 1em 0;">22 paraben variants in one response, each with its current status in English. Combined with scenario 2, the workflow is: get the family, take the codes, pull each one's 10-market regulatory picture. That is the pipeline behind every "we counted X across 10 countries" post on this blog — all written in English, from this data.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Working in English</h2>
+<p style="line-height: 1.7; margin: 1em 0;">Most of what a regulatory workflow needs comes back English or numeric: the INCI name, CAS number, EC number, <code>regulation_status</code>, and <code>limit_value</code>, plus the original English regulatory text for markets that publish in English. The Korean-only fields — <code>kr_name</code>, <code>mfds_classification</code>, <code>kcia_proviso</code>, and the full Korean notice text — are preserved verbatim so a Korean-speaking analyst can verify against the MFDS source, but they are not required to compare an ingredient's status across markets.</p>
+<p style="line-height: 1.7; margin: 1em 0;">In practice, a non-Korean-speaking analyst can run the full workflow — look up an ingredient, read its status, pull its limits across 10 markets, and compare — without reading a word of Korean.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Sources, updates, and how it is checked</h2>
+<p style="line-height: 1.7; margin: 1em 0;">Every response carries its source attribution in the payload:</p>
+<pre style="background-color: #f5f5f5; border-left: 3px solid #999; padding: 1em; margin: 1em 0; overflow-x: auto; font-size: 0.85em; line-height: 1.5;"><code>"data_source": "Ministry of Food and Drug Safety (MFDS, nedrug.mfds.go.kr),
+                European Commission CosIng Database
+                (ec.europa.eu/growth/tools-databases/cosing/reference/annexes)"</code></pre>
+<p style="line-height: 1.7; margin: 1em 0;">The Korean side comes from MFDS notices and KCIA ingredient classifications, refreshed when MFDS publishes amendments. The international side comes from CosIng and equivalent national publications. Each entry is normalized so the restriction type maps to a consistent field, while the original local-language text is preserved so a regulatory analyst can verify against the source.</p>
+<p style="line-height: 1.7; margin: 1em 0;">For how this data turns into analysis, see <a href="https://www.decodedkorea.org/2026/05/cosmetic-restrictions-10-countries-ranked.html">our 10-country restriction count</a>, <a href="https://www.decodedkorea.org/2026/04/parabens-banned-10-country-check.html">the paraben analysis</a>, and <a href="https://www.decodedkorea.org/2026/05/retinoids-beyond-retinol-regulation.html">the retinoid follow-up</a>.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Getting started</h2>
+<p style="line-height: 1.7; margin: 1em 0;">The K-Beauty Cosmetic Ingredients API is available on <a href="https://rapidapi.com/han8212/api/k-beauty-cosmetic-ingredients">RapidAPI</a>. The free BASIC tier covers exploration; the PRO and higher tiers unlock partial-match search and the per-country regulations endpoint used in scenarios 2 and 4 above.</p>
+<p style="line-height: 1.7; margin: 1em 0;">For chemical substance data outside the cosmetic scope — registered chemicals under Korea's K-REACH, GHS classifications, and persistent organic pollutant flags — we maintain a separate K-REACH API, which we will cover in a follow-up post.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Methodology and Sources</h2>
+<p style="line-height: 1.7; margin: 1em 0;">All API responses shown in this post were retrieved directly from the live K-Beauty Cosmetic Ingredients API (version 3.1.0). JSON payloads have been abbreviated for readability, and English annotations after <code>//</code> were added for explanation — they are not part of the API output. Full <code>limit_condition</code> text fields, containing the original English and Korean regulatory language, run to several hundred characters per entry and are not shown in full.</p>
+<p style="line-height: 1.7; margin: 1em 0;">Underlying data: Ministry of Food and Drug Safety (MFDS), Korea Cosmetic Association (KCIA), European Commission CosIng database, and the equivalent national publications for the eight other markets.</p>
+<p style="line-height: 1.7; margin: 1em 0;">The methylparaben EU limits (0.4% single, 0.8% mixture, Annex V entry 12) were cross-checked against the SCCS final opinion of December 15, 2023 and Commission Regulation (EU) 1004/2014. Korea and the other markets' figures are taken from the API response as shown.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<div style="background-color: #f9f9f9; border-left: 3px solid #999; padding: 1em 1.5em; margin: 2em 0; font-size: 0.9em; color: #555;"><p style="margin: 0; line-height: 1.6;"><strong>Important Notice:</strong> This article is for informational purposes only. It is not legal, regulatory, or medical advice. Cosmetic regulations change and vary by market. API responses reflect the database at the time of retrieval and should be verified against the current text of the relevant regulation before use in any compliance or formulation decision. For full terms, see our <a href="https://www.decodedkorea.org/p/disclaimer.html">Disclaimer</a>.</p></div>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<p style="line-height: 1.7; margin: 2em 0; font-style: italic; color: #666; text-align: center;"><em>Decoded Korea publishes data-driven analysis of Korean cosmetic ingredients, chemical regulations, and safety data.</em></p>
+<!--body-end-->
+</div>
+</article>
+</main>
+<footer class="site-footer"><div class="wrap"><p>© 2026 Decoded Korea. All content, data analysis, and regulatory compilations are the intellectual property of Decoded Korea. Unauthorized reproduction prohibited.</p></div></footer>
+</body>
+</html>

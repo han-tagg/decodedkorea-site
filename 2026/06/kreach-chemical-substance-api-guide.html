@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="CLcWfxwHHKmvzqbHhsDWhmmqab6y8ykTszpVrK7PBuc">
+<title>What&#x27;s Inside the K-REACH Chemical Substance API: 5 Queries for Compliance Workflows</title>
+<link rel="canonical" href="https://www.decodedkorea.org/2026/06/kreach-chemical-substance-api-guide.html">
+<meta name="description" content="The K-REACH API exposes 47,517 chemical substances with 9 regulatory flags and GHS data. We walk through 5 real queries for compliance and SDS work.">
+<meta property="og:url" content="https://www.decodedkorea.org/2026/06/kreach-chemical-substance-api-guide.html">
+<meta property="og:title" content="What&#x27;s Inside the K-REACH Chemical Substance API: 5 Queries for Compliance Workflows">
+<meta property="og:description" content="The K-REACH API exposes 47,517 chemical substances with 9 regulatory flags and GHS data. We walk through 5 real queries for compliance and SDS work.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Decoded Korea">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="alternate" type="application/atom+xml" title="Decoded Korea - Atom" href="https://www.decodedkorea.org/atom.xml">
+<link rel="alternate" type="application/rss+xml" title="Decoded Korea - RSS" href="https://www.decodedkorea.org/rss.xml">
+<link rel="stylesheet" href="/assets/site.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VN2KT6E084"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-VN2KT6E084');</script>
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<p class="site-title"><a href="/">Decoded Korea</a></p>
+<p class="site-desc">Decoding Korean cosmetic ingredients, chemical regulations, and safety data. Powered by real regulatory databases covering 21,000+ ingredients and 47,000+ chemical substances.</p>
+<nav class="site-nav"><ul><li><a href="/">Home</a></li><li><a href="/p/about.html">About</a></li><li><a href="/p/apis.html">APIs</a></li><li><a href="/p/disclaimer.html">Disclaimer</a></li><li><a href="/p/privacy-policy.html">Privacy Policy</a></li></ul></nav>
+</div></header>
+<main class="wrap">
+<article class="post">
+<h1 class="post-title">What&#x27;s Inside the K-REACH Chemical Substance API: 5 Queries for Compliance Workflows</h1>
+<p class="post-meta"><time datetime="2026-06-22T12:35:21.561Z">June 22, 2026</time> · <span class="post-labels"><a href="/search/label/K-REACH%3A%20Chemical%20Safety">K-REACH: Chemical Safety</a>, <a href="/search/label/K-REACH%3A%20Regulations">K-REACH: Regulations</a></span></p>
+<div class="post-body">
+<!--body-start--><p style="line-height: 1.7; margin: 1em 0;">If you handle chemical compliance for products entering Korea, the question is rarely "is this chemical dangerous." It is "how does Korea classify it, is it registered, and does it carry a GHS label requirement." Those answers live in K-REACH — Korea's Act on Registration and Evaluation of Chemical Substances — and in the GHS classifications maintained alongside it.</p>
+<p style="line-height: 1.7; margin: 1em 0;">The K-REACH Chemical Substance API exposes 47,517 registered substances, each with nine regulatory flags, plus GHS hazard data, through a single JSON interface. Like our cosmetics API, the data is Korean in origin, but the fields a chemical compliance workflow uses — CAS number, English name, the hazard flags, GHS pictogram codes, UN numbers — come back in English or in international standard form. A non-Korean-speaking analyst can run the whole thing.</p>
+<p style="line-height: 1.7; margin: 1em 0;">This post walks through five real queries and what each one answers.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">The nine flags</h2>
+<p style="line-height: 1.7; margin: 1em 0;">Every substance in the database carries nine boolean regulatory flags. They are the backbone of every query below:</p>
+<ul style="line-height: 1.7; margin: 1em 0; padding-left: 2em;">
+<li style="margin-bottom: 0.4em;"><code>is_toxic</code> — toxic substance</li>
+<li style="margin-bottom: 0.4em;"><code>is_prohibited</code> — prohibited substance</li>
+<li style="margin-bottom: 0.4em;"><code>is_restricted</code> — restricted substance</li>
+<li style="margin-bottom: 0.4em;"><code>is_priority</code> — priority-management substance</li>
+<li style="margin-bottom: 0.4em;"><code>is_cmr</code> — carcinogenic, mutagenic, or reprotoxic</li>
+<li style="margin-bottom: 0.4em;"><code>is_persistent</code> — persistent organic pollutant</li>
+<li style="margin-bottom: 0.4em;"><code>is_accident_prep</code> — accident-preparedness substance</li>
+<li style="margin-bottom: 0.4em;"><code>is_registration_req</code> — registration required</li>
+<li style="margin-bottom: 0.4em;"><code>is_rotterdam</code> — Rotterdam Convention (trade-controlled)</li>
+</ul>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Scenario 1: Look up a substance by CAS number</h2>
+<p style="line-height: 1.7; margin: 1em 0;">The standard entry point. Given a CAS number, return the substance's identifiers, names, and all nine flags in one call. Here is a PFOS salt — one of the most heavily classified substances in the database.</p>
+<pre style="background-color: #f5f5f5; border-left: 3px solid #999; padding: 1em; margin: 1em 0; overflow-x: auto; font-size: 0.85em; line-height: 1.5;"><code>GET /v1/substance/cas/2795-39-3
+
+{
+  "substance": {
+    "id": 19387,
+    "cas_no": "2795-39-3",
+    "ke_no": "KE-18223",
+    "name_eng": "Potassium perfluorooctanesulfonate",
+    "name_kor": "퍼플루오로옥탄술폰산 칼륨",   // Korean name
+    "formula": null,
+    "weight": null,
+    "flags": {
+      "is_toxic": true,
+      "is_restricted": false,
+      "is_prohibited": false,
+      "is_priority": true,
+      "is_cmr": true,
+      "is_accident_prep": false,
+      "is_persistent": true,
+      "is_registration_req": false,
+      "is_rotterdam": true
+    }
+  },
+  "regulations": [ ... ]
+}</code></pre>
+<p style="line-height: 1.7; margin: 1em 0;">Five flags at once — toxic, priority-management, CMR, persistent organic pollutant, and Rotterdam. The <code>ke_no</code> is Korea's own substance identifier (KE number), used in MFDS and Ministry of Environment notices. The <code>regulations</code> array, abbreviated here, lists the Korean classification notices behind each flag with their dates. Everything a compliance analyst needs to read the substance's status is in English or numeric form; only <code>name_kor</code> is Korean.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Scenario 2: Pull GHS label data for an SDS</h2>
+<p style="line-height: 1.7; margin: 1em 0;">For anyone writing a Safety Data Sheet or a label, the GHS endpoint returns the signal word, pictogram codes, UN number, and hazard classifications. Here is benzene.</p>
+<pre style="background-color: #f5f5f5; border-left: 3px solid #999; padding: 1em; margin: 1em 0; overflow-x: auto; font-size: 0.85em; line-height: 1.5;"><code>GET /v1/ghs/71-43-2
+
+{
+  "substance": {
+    "cas_no": "71-43-2",
+    "name_eng": "Benzene",
+    "formula": "C6H6",
+    "weight": "78.11",
+    "flags": { "is_toxic": true, "is_priority": true,
+               "is_accident_prep": true, "is_registration_req": true, ... }
+  },
+  "ghs": {
+    "signal_word": "위험",          // "Danger"
+    "pictograms": ["GHS02", "GHS07", "GHS08"],
+    "un_number": "1114",
+    "hazards": [ ... ]
+  }
+}</code></pre>
+<p style="line-height: 1.7; margin: 1em 0;">The pictogram codes (GHS02 flammable, GHS07 irritant, GHS08 health hazard) and the UN number (1114) are international standards — the same on a label in Seoul, Frankfurt, or Houston. Only the signal word comes back in Korean (위험 = "Danger"), and the GHS code for it is universal. The benzene classification here matches its standard GHS profile: a Danger signal word with flammable, irritant, and serious-health-hazard pictograms.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Scenario 3: Search by name</h2>
+<p style="line-height: 1.7; margin: 1em 0;">When you do not have a CAS number, a name search returns every match with its flags. A partial match on "formaldehyde" returns the parent compound and its many reaction products and derivatives.</p>
+<pre style="background-color: #f5f5f5; border-left: 3px solid #999; padding: 1em; margin: 1em 0; overflow-x: auto; font-size: 0.85em; line-height: 1.5;"><code>GET /v1/substance/search?q=formaldehyde
+
+{
+  "page": 1,
+  "limit": 10,
+  "has_next_page": true,
+  "items": [
+    {
+      "id": 60,
+      "cas_no": "98219-66-0",
+      "name_eng": "Rosin, maleated, reaction products with formaldehyde",
+      "flags": { "is_toxic": false, "is_prohibited": false, ... }
+    },
+    ...
+  ]
+}</code></pre>
+<p style="line-height: 1.7; margin: 1em 0;">Results are paginated (<code>has_next_page</code> tells you when to fetch more). This is how you map a whole chemical family — every formaldehyde derivative, every perfluoro compound — and see at a glance which carry flags and which do not. Searching by English name returns English-named results; the flags are English throughout.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Scenario 4: List everything under one regulation type</h2>
+<p style="line-height: 1.7; margin: 1em 0;">The regulations endpoint returns every substance under a chosen classification. This is the query behind our published analyses — for example, pulling the full prohibited list.</p>
+<pre style="background-color: #f5f5f5; border-left: 3px solid #999; padding: 1em; margin: 1em 0; overflow-x: auto; font-size: 0.85em; line-height: 1.5;"><code>GET /v1/regulations/list?type=prohibited
+
+{
+  "regulation_type": "prohibited",
+  "page": 1,
+  "has_next_page": true,
+  "items": [
+    {
+      "id": 2219,
+      "cas_no": "20859-73-8",
+      "name_eng": "Aluminum phosphide",
+      "flags": { "is_toxic": true, "is_prohibited": true,
+                 "is_rotterdam": true, ... }
+    },
+    {
+      "id": 2522,
+      "cas_no": "92-67-1",
+      "name_eng": "4-Aminobiphenyl",
+      "flags": { "is_toxic": true, "is_prohibited": true, ... }
+    },
+    ...
+  ]
+}</code></pre>
+<p style="line-height: 1.7; margin: 1em 0;">The <code>type</code> parameter accepts each of the nine flags: <code>prohibited</code>, <code>toxic</code>, <code>restricted</code>, <code>priority</code>, <code>cmr</code>, <code>persistent</code>, <code>accident_prep</code>, <code>registration_req</code>, and <code>rotterdam</code>. The prohibited list above is the data behind <a href="https://www.decodedkorea.org/2026/05/kreach-prohibited-substances.html">our 97-banned-substances post</a>. Change the type to <code>persistent</code> and you get the persistent organic pollutants — the data behind our <a href="https://www.decodedkorea.org/2026/05/kreach-pfas-forever-chemicals.html">PFAS analysis</a>.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Scenario 5: Cross-reference a class against a flag</h2>
+<p style="line-height: 1.7; margin: 1em 0;">Scenarios 3 and 4 combine into the query most compliance work actually needs. Pull a chemical family by name search, then check each member against a regulation list — for example, which perfluoro compounds are flagged as persistent organic pollutants.</p>
+<pre style="background-color: #f5f5f5; border-left: 3px solid #999; padding: 1em; margin: 1em 0; overflow-x: auto; font-size: 0.85em; line-height: 1.5;"><code>GET /v1/regulations/list?type=persistent
+
+{
+  "regulation_type": "persistent",
+  "items": [
+    {
+      "cas_no": "2043-53-0",
+      "name_eng": "Decane, ...heptadecafluoro-10-iodo-",
+      "flags": { "is_persistent": true, ... }
+    },
+    ...
+  ]
+}</code></pre>
+<p style="line-height: 1.7; margin: 1em 0;">For a compliance team tracking PFAS or other substances of concern across markets, this is the core workflow: identify the family, pull the flagged subset, and compare against what other jurisdictions restrict. The flags map cleanly onto international frameworks — <code>is_persistent</code> to the Stockholm Convention, <code>is_rotterdam</code> to the Rotterdam Convention — so a Korean classification can be lined up against a global one without translation.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Working in English</h2>
+<p style="line-height: 1.7; margin: 1em 0;">Almost everything a chemical compliance workflow needs is English or international-standard: <code>cas_no</code>, <code>ke_no</code>, <code>name_eng</code>, <code>formula</code>, <code>weight</code>, all nine flags, the GHS pictogram codes, and the UN number. The Korean fields — <code>name_kor</code>, the signal word text, and the full Korean notice references in the <code>regulations</code> array — are preserved so a Korean-speaking analyst can verify against the source, but they are not needed to read a substance's regulatory status, build an SDS, or compare against another market's rules.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Sources and scope</h2>
+<p style="line-height: 1.7; margin: 1em 0;">The data is collected from Korea's official open-data portal (data.go.kr), drawing on the Ministry of Environment chemical substance and GHS datasets. It covers 47,517 registered substances with their K-REACH classifications and GHS hazard data. The flags reflect the classification notices recorded for each substance; the original notice references are preserved in the <code>regulations</code> array for verification.</p>
+<p style="line-height: 1.7; margin: 1em 0;">For how this data turns into analysis, see <a href="https://www.decodedkorea.org/2026/05/kreach-prohibited-substances.html">47,000 Chemicals in Korea's Database. Only 97 Are Banned</a> and <a href="https://www.decodedkorea.org/2026/05/kreach-pfas-forever-chemicals.html">the PFAS analysis</a>. For cosmetic ingredient data, see our <a href="https://www.decodedkorea.org/2026/06/kbeauty-cosmetic-ingredients-api-guide.html">K-Beauty API guide</a>.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Getting started</h2>
+<p style="line-height: 1.7; margin: 1em 0;">The K-REACH Chemical Substance API is available on <a href="https://rapidapi.com/han8212/api/k-reach-chemical-substance-api">RapidAPI</a>. The free tier covers exploration; higher tiers raise the request volume for bulk classification work.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<h2 style="margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5em; font-weight: bold;">Methodology and Sources</h2>
+<p style="line-height: 1.7; margin: 1em 0;">All API responses shown were retrieved directly from the live K-REACH Chemical Substance API. JSON payloads have been abbreviated for readability, and English annotations after <code>//</code> were added for explanation — they are not part of the API output. The full <code>regulations</code> arrays, containing Korean classification notices and dates, are not shown in full.</p>
+<p style="line-height: 1.7; margin: 1em 0;">Underlying data: Korea's data.go.kr open-data portal, Ministry of Environment chemical substance and GHS datasets, covering 47,517 registered substances.</p>
+<p style="line-height: 1.7; margin: 1em 0;">The benzene GHS classification (signal word Danger; pictograms GHS02, GHS07, GHS08; UN 1114) was cross-checked against published GHS classification references and standard safety data sheets.</p>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<div style="background-color: #f9f9f9; border-left: 3px solid #999; padding: 1em 1.5em; margin: 2em 0; font-size: 0.9em; color: #555;"><p style="margin: 0; line-height: 1.6;"><strong>Important Notice:</strong> This article is for informational purposes only. It is not legal, regulatory, or safety advice. Chemical classifications and GHS data change and must be verified against the current official source before use in any registration, SDS, or labeling decision. API responses reflect the database at the time of retrieval. For full terms, see our <a href="https://www.decodedkorea.org/p/disclaimer.html">Disclaimer</a>.</p></div>
+<hr style="margin: 2em 0; border: 0; border-top: 1px solid #ddd;" />
+<p style="line-height: 1.7; margin: 2em 0; font-style: italic; color: #666; text-align: center;"><em>Decoded Korea publishes data-driven analysis of Korean cosmetic ingredients, chemical regulations, and safety data.</em></p>
+<!--body-end-->
+</div>
+</article>
+</main>
+<footer class="site-footer"><div class="wrap"><p>© 2026 Decoded Korea. All content, data analysis, and regulatory compilations are the intellectual property of Decoded Korea. Unauthorized reproduction prohibited.</p></div></footer>
+</body>
+</html>
