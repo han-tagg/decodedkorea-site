@@ -1,0 +1,452 @@
+/* Fonts are self-hosted (SIL Open Font License, see fonts/OFL-*.txt). No third-party requests. */
+@font-face {
+  font-family: "Literata";
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("fonts/literata-latin-opsz-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Literata";
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("fonts/literata-latin-ext-opsz-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Literata";
+  font-style: italic;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("fonts/literata-latin-opsz-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Literata";
+  font-style: italic;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("fonts/literata-latin-ext-opsz-italic.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Public Sans";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/public-sans-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Public Sans";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/public-sans-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* Decoded Korea site stylesheet
+   Post bodies keep their own inline styles (spacing, table borders).
+   This file sets type, color, page layout and the pieces around the post body. */
+
+:root {
+  --paper: #ffffff;
+  --ink: #1e2b38;          /* body text: blue-black ink */
+  --ink-soft: #4d5b6a;     /* descriptions, meta */
+  --ink-faint: #75828f;    /* counts, secondary meta */
+  --rule: #dfe3e7;
+  --link: #1d4f91;
+  --link-visited: #4a3d8c;
+  --mark: #1f3a5f;         /* logo bar: deep navy */
+  --wash: #f3f5f7;
+
+  --sans: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --serif: "Literata", Georgia, "Times New Roman", serif;
+
+  --measure: 40rem;        /* reading column, about 70 characters of Literata at 18px */
+  --rail: 11rem;
+  --page: 64rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.125rem;     /* 18px */
+  line-height: 1.7;
+  font-optical-sizing: auto;
+}
+
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:visited { color: var(--link-visited); }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip {
+  position: absolute; left: -999px; top: 0;
+  background: var(--ink); color: #fff; padding: 0.5rem 1rem; z-index: 10;
+  font-family: var(--sans); font-size: 0.9rem;
+}
+.skip:focus { left: 1rem; top: 1rem; }
+
+.wrap {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* ---------- Masthead ---------- */
+
+.masthead {
+  border-bottom: 1px solid var(--rule);
+}
+.masthead .wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem 2rem;
+  flex-wrap: wrap;
+  padding-top: 1.5rem;
+  padding-bottom: 1.25rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  text-decoration: none;
+  color: var(--ink);
+  margin-right: auto;
+}
+.brand:visited { color: var(--ink); }
+
+.brand-text { display: block; }
+.brand-bar { display: block; width: 2.2rem; height: 4px; background: var(--mark); margin-bottom: 0.5rem; }
+.brand-name {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.brand-line {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  margin-top: 0.3rem;
+}
+
+.site-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1.5rem;
+}
+.site-nav a {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { border-bottom-color: var(--rule); }
+.site-nav a[aria-current="page"] { border-bottom-color: var(--ink); }
+
+/* ---------- Home: topic index ---------- */
+
+.topics {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  padding: 1.25rem 0 0;
+  margin: 0;
+}
+.topics ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.6rem;
+}
+.topics a { font-weight: 600; color: var(--ink); text-decoration: none; }
+.topics a:hover { text-decoration: underline; }
+.topics .count { color: var(--ink-faint); font-variant-numeric: tabular-nums; margin-left: 0.3em; }
+
+/* ---------- Home and label pages: post register ---------- */
+
+.register { padding: 1rem 0 3rem; }
+
+.month {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: 0 2.5rem;
+  padding-top: 1.75rem;
+}
+.month + .month { border-top: 1px solid var(--rule); margin-top: 1rem; }
+
+.month-name {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0.15rem 0 0;
+  line-height: 1.4;
+}
+.month-name a { color: var(--ink); text-decoration: none; }
+.month-name a:hover { text-decoration: underline; }
+.month-name .count {
+  display: block;
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+
+.entries { list-style: none; margin: 0; padding: 0; max-width: 44rem; }
+.entry { margin: 0 0 2.1rem; }
+.entry:last-child { margin-bottom: 0.75rem; }
+
+.entry-title {
+  font-family: var(--sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.entry-title a { color: var(--ink); text-decoration: none; }
+.entry-title a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+.entry-title a:visited { color: var(--ink); }
+
+.entry-desc {
+  margin: 0.4rem 0 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.meta {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+  margin: 0.5rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.1rem;
+}
+.meta time { font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+.meta a { color: var(--ink-faint); }
+.meta a:hover { color: var(--ink); }
+
+/* One-month archive pages: the page heading already names the month, so the month rail is hidden. */
+.register.single .month { display: block; padding-top: 0; }
+.register.single .month-name { display: none; }
+
+/* ---------- Page heading for label, archive, static and 404 pages ---------- */
+
+.page-head {
+  padding: 2.5rem 0 0.5rem;
+}
+.page-head h1 {
+  font-family: var(--sans);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0;
+}
+.page-head p {
+  font-family: var(--sans);
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  margin: 0.5rem 0 0;
+}
+
+/* ---------- Post ---------- */
+
+.post {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, var(--measure));
+  gap: 0 2.5rem;
+  padding: 3rem 0 4rem;
+}
+
+.post-head { grid-column: 2; }
+.post-title {
+  font-family: var(--sans);
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.45rem);
+  font-weight: 800;
+  line-height: 1.13;
+  letter-spacing: -0.022em;
+  margin: 0 0 1.75rem;
+  text-wrap: balance;
+}
+
+.post-aside {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  padding-top: 0.55rem;
+}
+.post-aside dl { margin: 0; }
+.post-aside dt { color: var(--ink-faint); margin: 0; }
+.post-aside dd { margin: 0 0 1rem; color: var(--ink); }
+.post-aside dd a { color: var(--ink); }
+.post-aside ul { list-style: none; margin: 0; padding: 0; }
+.post-aside li + li { margin-top: 0.2rem; }
+
+.post-body { grid-column: 2; min-width: 0; }
+
+/* Post bodies carry inline styles for spacing and borders.
+   Only properties the inline styles leave alone are set here. */
+.post-body h2, .post-body h3, .post-body h4 {
+  font-family: var(--sans);
+  letter-spacing: -0.012em;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.post-body h2 { font-weight: 700; }
+.post-body strong { font-weight: 600; }
+.post-body ul, .post-body ol { padding-left: 1.3em; }
+.post-body li { margin: 0.25em 0; }
+.post-body li::marker { color: var(--ink-faint); }
+.post-body img { max-width: 100%; height: auto; }
+.post-body hr { border: 0; border-top: 1px solid var(--rule); }
+
+.post-body table {
+  font-family: var(--sans);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.45;
+  max-width: 100%;
+}
+/* Older posts have no scroll wrapper around their tables. */
+.post-body > table {
+  display: block;
+  overflow-x: auto;
+}
+.post-body th { color: var(--ink); }
+.post-body td { vertical-align: top; }
+
+.post-foot {
+  grid-column: 2;
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+.post-foot p { margin: 0 0 0.6rem; }
+
+/* Static pages (About, APIs, Disclaimer, Privacy Policy) use the post grid with an empty rail. */
+.post.static .post-aside:empty { display: none; }
+
+/* ---------- 404 ---------- */
+
+.notfound { padding: 3rem 0 5rem; max-width: var(--measure); }
+.notfound h1 {
+  font-family: var(--sans);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+}
+
+/* ---------- Footer ---------- */
+
+.site-foot {
+  border-top: 1px solid var(--rule);
+  background: var(--wash);
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.site-foot .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2.5rem;
+  justify-content: space-between;
+  padding-top: 1.75rem;
+  padding-bottom: 2.25rem;
+}
+.site-foot p { margin: 0; max-width: 34rem; }
+.site-foot ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 0.3rem 1.25rem;
+}
+.site-foot a { color: var(--ink-soft); }
+.site-foot a:hover { color: var(--ink); }
+
+/* ---------- Narrow screens ---------- */
+
+@media (max-width: 52rem) {
+  .month {
+    grid-template-columns: minmax(0, 1fr);
+    padding-top: 1.5rem;
+  }
+  .month-name { margin-bottom: 1rem; }
+  .month-name .count { display: inline; margin-left: 0.4em; }
+  .topics ul { gap: 0.3rem 1.1rem; }
+  .topics { font-size: 0.85rem; }
+
+  .post {
+    grid-template-columns: minmax(0, 1fr);
+    padding-top: 2rem;
+  }
+  .post-head, .post-body, .post-foot { grid-column: 1; }
+  .post-aside {
+    grid-column: 1;
+    grid-row: auto;
+    padding: 0 0 0.25rem;
+    margin: -0.75rem 0 1.25rem;
+  }
+  .post-aside dl {
+    display: flex; flex-wrap: wrap; gap: 0 1.5rem;
+  }
+  .post-aside dd { margin-bottom: 0.6rem; }
+  .post-aside ul { display: flex; flex-wrap: wrap; gap: 0 0.9rem; }
+  .post-aside li + li { margin-top: 0; }
+}
+
+@media (max-width: 34rem) {
+  body { font-size: 1.0625rem; }
+  .wrap { padding: 0 1rem; }
+  .masthead .wrap { padding-top: 1.1rem; padding-bottom: 1rem; }
+  .brand-name { font-size: 1.35rem; }
+  .brand-bar { width: 1.9rem; height: 3px; margin-bottom: 0.4rem; }
+  .brand-line { font-size: 0.8rem; }
+  .site-nav { width: 100%; }
+  .site-nav ul { gap: 1.25rem; }
+  .entry-title { font-size: 1.15rem; }
+}
+
+@media print {
+  .masthead, .site-nav, .site-foot, .post-aside, .topics { display: none; }
+  .post { display: block; padding: 0; }
+  a { color: inherit; }
+}
